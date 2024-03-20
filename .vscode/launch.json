@@ -1,0 +1,34 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "API Gateway",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/broccoli-api-gateway/src/app.ts",
+      "outFiles": ["${workspaceFolder}/broccoli-api-gateway/dist/**/*.js"],
+      "envFile": "${workspaceFolder}/broccoli-auth/.env",
+      "preLaunchTask": "tsc: build - broccoli-auth/tsconfig.json"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Auth Service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/broccoli-auth/src/app.ts",
+      "outFiles": ["${workspaceFolder}/broccoli-auth/dist/**/*.js"],
+      "envFile": "${workspaceFolder}/broccoli-auth/.env",
+      "preLaunchTask": "tsc: build - broccoli-auth/tsconfig.json"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Compound",
+      "configurations": ["API Gateway", "Auth Service"]
+    }
+  ]
+}
