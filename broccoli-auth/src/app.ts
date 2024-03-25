@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import morgan from "morgan";
 import "dotenv/config";
 
 import db from "./db";
@@ -9,6 +10,9 @@ const app: Express = express();
 
 // It parses incoming requests with JSON payloads and is based on body-parser.
 app.use(express.json());
+
+// HTTP request logger
+app.use(morgan("combined"));
 
 // Open the connection to mongodb
 db.connectMongoDB()

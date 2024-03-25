@@ -10,7 +10,7 @@ const GATEWAY_TIMEOUT = Number(process.env.GATEWAY_TIMEOUT) || 60 * 1000;
 
 // Stores the number of requests for each IP address in the caching service
 // Configure TTL to reset request count every 'RATE_TIME' of seconds automatically
-const caching = new Caching(RATE_TIME); //TODO: Testing stdTTL
+const caching = new Caching(RATE_TIME);
 
 // Middleware function for rate limiting and timeout handling
 const rateLimitAndTimeout = (

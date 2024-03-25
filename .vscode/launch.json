@@ -11,8 +11,8 @@
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/broccoli-api-gateway/src/app.ts",
       "outFiles": ["${workspaceFolder}/broccoli-api-gateway/dist/**/*.js"],
-      "envFile": "${workspaceFolder}/broccoli-auth/.env",
-      "preLaunchTask": "tsc: build - broccoli-auth/tsconfig.json"
+      "envFile": "${workspaceFolder}/broccoli-api-gateway/.env",
+      "preLaunchTask": "tsc: build - broccoli-api-gateway/tsconfig.json"
     },
     {
       "type": "node",
