@@ -1,8 +1,8 @@
 import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
-import "dotenv/config";
 
-import db from "./db";
+import config from "./utils/config";
+import db from "./database";
 import authRouter from "./routes/auth.router";
 
 // App instance of Express
@@ -29,9 +29,7 @@ app.use((_req: Request, res: Response) => {
     res.status(404).end();
 });
 
-// Define port for Express server
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
+// Express server
+app.listen(config.PORT, () => {
+    console.log(`App listening on port ${config.PORT}`);
 });

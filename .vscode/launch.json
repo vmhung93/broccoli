@@ -17,18 +17,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Auth Service",
+      "name": "User Service",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/broccoli-auth/src/app.ts",
-      "outFiles": ["${workspaceFolder}/broccoli-auth/dist/**/*.js"],
-      "envFile": "${workspaceFolder}/broccoli-auth/.env",
-      "preLaunchTask": "tsc: build - broccoli-auth/tsconfig.json"
+      "program": "${workspaceFolder}/broccoli-user/src/app.ts",
+      "outFiles": ["${workspaceFolder}/broccoli-user/dist/**/*.js"],
+      "envFile": "${workspaceFolder}/broccoli-user/.env",
+      "preLaunchTask": "tsc: build - broccoli-user/tsconfig.json"
     }
   ],
   "compounds": [
     {
       "name": "Compound",
-      "configurations": ["API Gateway", "Auth Service"]
+      "configurations": ["API Gateway", "User Service"]
     }
   ]
 }

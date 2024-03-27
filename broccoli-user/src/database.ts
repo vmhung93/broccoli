@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import "dotenv/config";
+import config from "./utils/config";
 
 const connectMongoDB = async () => {
-    await mongoose.connect(`mongodb://${process.env.MONGODB_SERVER}`, {
+    await mongoose.connect(`mongodb://${config.MONGODB_SERVER}`, {
         authSource: "admin",
     });
 };

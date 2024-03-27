@@ -1,7 +1,8 @@
-import "dotenv/config";
 import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import { Document } from "mongoose";
+
+import config from "../utils/config";
 
 import User from "../models/user.model";
 
@@ -50,9 +51,9 @@ const register = async (dto: RegisterDTO): Promise<Document<any>> => {
 
 const generateToken = (payload: any) => {
     try {
-        const secret = process.env.JWT_SECRET || "";
-        const audience = process.env.JWT_AUDIENCE;
-        const expiresIn = process.env.JWT_EXPIRES_IN;
+        const secret = config.JWT_SECRET;
+        const audience = config.JWT_AUDIENCE;
+        const expiresIn = config.JWT_EXPIRES_IN;
 
         // Create a jwt token containing the user info
         return jwt.sign(payload, secret, {
@@ -66,8 +67,8 @@ const generateToken = (payload: any) => {
 
 const verifyToken = (token: string) => {
     try {
-        const secret = process.env.JWT_SECRET || "";
-        const audience = process.env.JWT_AUDIENCE;
+        const secret = config.JWT_SECRET;
+        const audience = config.JWT_AUDIENCE;
 
         const payload = jwt.verify(token, secret, { audience: audience });
 
