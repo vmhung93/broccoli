@@ -1,16 +1,17 @@
-import express, { Express, NextFunction, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { createProxyMiddleware } from "http-proxy-middleware";
-import "dotenv/config";
+
+import config from "./config";
 
 // Middleware
-import rateLimitAndTimeout from "./middlewares/rate_limiting";
+import rateLimitAndTimeout from "./middlewares/rate-limiting";
 import authentication from "./middlewares/authentication";
 
 // Proxy rules
-import proxyRules from "./proxy.rules";
+import PROXY_RULES from "./proxy-rules";
 
 // App instance of Express
 const app: Express = express();
@@ -24,7 +25,7 @@ app.disable("x-powered-by"); // Reduce Fingerprinting
 app.use(morgan("combined")); // HTTP request logger
 
 // Set up proxy middleware for each microservice
-proxyRules.forEach(({ route, target, auth }) => {
+PROXY_RULES.forEach(({ route, target, auth }) => {
     // Proxy options
     const proxyOptions = {
         target,
@@ -32,8 +33,8 @@ proxyRules.forEach(({ route, target, auth }) => {
         pathRewrite: {
             [`^${route}`]: "",
         },
-        timeout: 60000, // TODO: Looks stupid but it works
-        onProxyReq: (proxyReq: any, req: Request, res: Response) => {
+        // timeout: 60000, // TODO: Looks stupid but it works
+        onProxyReq: (proxyReq: any, req: Request, _res: Response) => {
             // Attach authenticated user to the request headers
             if (req.user) {
                 proxyReq.setHeader(
@@ -62,7 +63,7 @@ app.use((_req: Request, res: Response) => {
 });
 
 // Define port for Express server
-const PORT = process.env.PORT || 3000;
+const PORT = config.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);

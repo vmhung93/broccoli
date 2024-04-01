@@ -1,12 +1,11 @@
 import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
 
-import db from "./database";
 import config from "./config";
 
 import errorHandler from "./middlewares/error.middleware";
 
-import authRouter from "./routes/auth.router";
+import productRouter from "./routes/product.router";
 
 // App instance of Express
 const app: Express = express();
@@ -17,24 +16,20 @@ app.use(express.json());
 // HTTP request logger
 app.use(morgan("combined"));
 
-// Open the connection to mongodb
-db.connectMongoDB()
-    .then(() => {
-        console.info("Connected to MongoDB");
-    })
-    .catch((err) => console.log(err));
-
 // Router
-app.use("/auth", authRouter);
+app.use("/product", productRouter);
 
 // Handler for route not found
 app.use((_req: Request, res: Response) => {
     res.status(404).end();
 });
 
+// Global error handling middleware
 app.use(errorHandler);
 
-// Express server
-app.listen(config.PORT, () => {
-    console.log(`App listening on port ${config.PORT}`);
+// Define port for Express server
+const PORT = config.PORT;
+
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
 });

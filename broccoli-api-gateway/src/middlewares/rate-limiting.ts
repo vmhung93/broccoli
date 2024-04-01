@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import "dotenv/config";
 
-import { Caching } from "../utils/caching";
+import config from "../config";
+
+import Caching from "../utils/caching";
 
 // Define rate limit constants
-const RATE_LIMIT = Number(process.env.RATE_LIMIT) || 60;
-const RATE_TIME = Number(process.env.RATE_TIME) || 60;
-const GATEWAY_TIMEOUT = Number(process.env.GATEWAY_TIMEOUT) || 60 * 1000;
+const RATE_LIMIT = config.RATE_LIMIT;
+const RATE_TIME = config.RATE_TIME;
+const GATEWAY_TIMEOUT = config.GATEWAY_TIMEOUT;
 
 // Stores the number of requests for each IP address in the caching service
 // Configure TTL to reset request count every 'RATE_TIME' of seconds automatically
@@ -39,13 +40,9 @@ const rateLimitAndTimeout = (
     // Store request count
     caching.store(ip, count + 1);
 
-    // Set timeout for each request
+    // Handle timeout
     req.setTimeout(GATEWAY_TIMEOUT, () => {
-        // Handle timeout error
-        res.status(504).end();
-
-        // Abort the request
-        req.destroy();
+        res.status(408).send("Request Timeout");
     });
 
     // Continue to the next middleware

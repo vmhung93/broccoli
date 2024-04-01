@@ -20,11 +20,13 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - './.temp/mongo/db:/data/db'
-  mongo-express:
-    image: 'mongo-express:1.0.2-20'
-    container_name: 'mongo-express'
+      - ./.temp/mongo/db:/data/db
+  mysql:
+    image: 'mysql:8.3'
+    container_name: 'mysql'
     ports:
-      - '8081:8081'
+      - '3306:3306'
+    volumes:
+      - ./.temp/mysql:/var/lib/mysql
     environment:
-      - ME_CONFIG_MONGODB_SERVER=root:root@mongodb
+      - MYSQL_ROOT_PASSWORD=root

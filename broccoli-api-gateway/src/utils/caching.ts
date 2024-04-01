@@ -1,33 +1,35 @@
 import NodeCache from "node-cache";
 
-export class Caching {
+class Caching {
     private _caching: NodeCache;
 
     constructor(stdTTL: number) {
         this._caching = new NodeCache({ stdTTL: stdTTL ?? 600 });
     }
 
-    has = (key: string): boolean => {
+    public has = (key: string): boolean => {
         return this._caching.has(key);
     };
 
-    store = (key: string, val: unknown): boolean => {
+    public store = (key: string, val: unknown): boolean => {
         return this._caching.set(key, val);
     };
 
-    retrieve = (key: string): unknown => {
+    public retrieve = (key: string): unknown => {
         return this._caching.get(key);
     };
 
-    take = (key: string): unknown => {
+    public take = (key: string): unknown => {
         return this._caching.take(key);
     };
 
-    remove = (key: string): number => {
+    public remove = (key: string): number => {
         return this._caching.del(key);
     };
 
-    flushAll = (): void => {
+    public flushAll = (): void => {
         return this._caching.flushAll();
     };
 }
+
+export default Caching;

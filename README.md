@@ -86,3 +86,17 @@ Example for tsconfig.json
     ]
 }
 ```
+
+# Migration
+
+### Creating a new migration
+
+```
+npm run typeorm migration:generate ./src/migrations/[name]
+```
+
+### Running and reverting migrations
+
+```
+npm run typeorm migration:run
+```

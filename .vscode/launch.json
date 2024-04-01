@@ -23,12 +23,22 @@
       "outFiles": ["${workspaceFolder}/broccoli-user/dist/**/*.js"],
       "envFile": "${workspaceFolder}/broccoli-user/.env",
       "preLaunchTask": "tsc: build - broccoli-user/tsconfig.json"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Product Service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/broccoli-product/src/app.ts",
+      "outFiles": ["${workspaceFolder}/broccoli-product/dist/**/*.js"],
+      "envFile": "${workspaceFolder}/broccoli-product/.env",
+      "preLaunchTask": "tsc: build - broccoli-product/tsconfig.json"
     }
   ],
   "compounds": [
     {
       "name": "Compound",
-      "configurations": ["API Gateway", "User Service"]
+      "configurations": ["API Gateway", "Product Service", "User Service"]
     }
   ]
 }

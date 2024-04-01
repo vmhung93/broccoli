@@ -1,12 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import "dotenv/config";
+
+import config from "../config";
+
+import WHITELIST from "../whitelist";
 
 // Middleware function for rate limiting and timeout handling
 const authentication = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const secret = process.env.JWT_SECRET || "";
-        const audience = process.env.JWT_AUDIENCE;
+        // Whitelist checking
+        const allowAnonymous = WHITELIST.find((api) => {
+            const regex = new RegExp(api.regex);
+            return api.method === req.method && regex.test(req.originalUrl);
+        });
+
+        if (allowAnonymous) {
+            // Continue to the next middleware
+            return next();
+        }
+
+        const secret = config.JWT_SECRET;
+        const audience = config.JWT_AUDIENCE;
 
         const token = getToken(req);
 

@@ -1,0 +1,28 @@
+{
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        /* Visit https://aka.ms/tsconfig to read more about this file */
+
+        /* Language and Environment */
+        "target": "es2016",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        /* Modules */
+        "module": "commonjs",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": ["node"],
+
+        /* Emit */
+        "sourceMap": true,
+
+        /* Type Checking */
+        "strict": true,
+        "strictPropertyInitialization": false,
+
+        /* Completeness */
+        "skipLibCheck": true
+    }
+}

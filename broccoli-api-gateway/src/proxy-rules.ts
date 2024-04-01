@@ -1,18 +1,18 @@
 // Define routes and corresponding microservices
-const proxyRules = [
+const PROXY_RULES = [
     {
         route: "/auth",
         target: "http://localhost:3001/auth/",
         auth: false,
     },
     {
-        route: "/users",
-        target: "http://localhost:3333/users/",
+        route: "/user",
+        target: "http://localhost:3001/user/",
         auth: true,
     },
     {
-        route: "/cart",
-        target: "https://service.com/cart/",
+        route: "/product",
+        target: "http://localhost:3002/product/",
         auth: true,
     },
     {
@@ -22,4 +22,4 @@ const proxyRules = [
     },
 ];
 
-export default proxyRules;
+export default PROXY_RULES;
